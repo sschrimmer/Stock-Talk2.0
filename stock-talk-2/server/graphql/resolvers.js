@@ -20,7 +20,7 @@ const resolvers = {
         const posts = await Post.find();
         return posts;
       } catch (error) {
-        throw new Error('Error fetching posts');
+        throw Error('Error fetching posts');
       }
     },
   },
@@ -35,7 +35,7 @@ const resolvers = {
         throw new Error('Error creating user');
       }
     },
-    
+
     createPost: async (_, { title, content, userId }) => {
       try {
         const post = new Post({ title, content, userId });
@@ -43,6 +43,29 @@ const resolvers = {
         return post;
       } catch (error) {
         throw new Error('Error creating post');
+      }
+    },
+
+    loginUser: async (_, { email, password }) => {
+      try {
+        // Implement authentication logic here
+        // Return a JWT token on successful authentication
+      } catch (error) {
+        throw new Error('Error logging in');
+      }
+    },
+    
+    likePost: async (_, { postId }) => {
+      try {
+        const post = await Post.findById(postId);
+        if (!post) {
+          throw new Error('Post not found');
+        }
+        post.likes += 1;
+        await post.save();
+        return post;
+      } catch (error) {
+        throw new Error('Error liking post');
       }
     },
   },
