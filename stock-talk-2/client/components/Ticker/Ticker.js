@@ -42,9 +42,9 @@ const createURL = (func, interval, tickerSymbol) => {
 
 }
 
-// exampl getAPI(createURL("TOP_GAINERS_LOSERS","daily","tsla"))
 
 
+//fetch from URL
 const getAPI = async (url) =>{
     try {
         const response = await fetch(url);
@@ -54,4 +54,37 @@ const getAPI = async (url) =>{
         
     }
 
+}
+
+// example: getAPI(createURL("TOP_GAINERS_LOSERS","daily","tsla"))
+
+
+
+
+
+
+
+const Ticker = () =>{
+
+    //
+    const createList = (array)=>{
+        //create `ul` with flex-flow: row wrap
+        
+        for(obj of array){
+            //append inside `ul`
+            // create `li` with `flex-flow: column wrap`
+        }
+
+
+        return (
+            <></>
+        );
+    };
+
+    //Outputting marquee of all datapoints...
+    return (
+        <marquee class=""behavior="scroll" scrollamount="5">
+            {createLi()}
+        </marquee>
+    );
 }
