@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import App from './App';
 import Dashboard from './components/Dashboard/Dashboard'; // Import the Dashboard component
 import reportWebVitals from './reportWebVitals';
 import { loadStripe } from '@stripe/stripe-js';
@@ -11,7 +12,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 // Render the Dashboard component as the default
 root.render(
   <React.StrictMode>
-    <Dashboard/>
+    <Dashboard />
   </React.StrictMode>
 );
 
