@@ -81,14 +81,14 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h2>{category ? `Posts in ${category}` : "Dashboard Home"}</h2>
+      <h2 class = 'dashHead'>{category ? `Posts in ${category}` : "Dashboard Home"}</h2>
       {category && (
         <div>
           <button onClick={() => fetchPosts()}>Back to Dashboard Home</button>
         </div>
       )}
       <div>
-        <label>Filter by: </label>
+        <label class = 'label'>Filter by: </label>
         <select onChange={handleFilterChange}>
           <option value="likes">Most Liked</option>
           <option value="date">Most Recent</option>
