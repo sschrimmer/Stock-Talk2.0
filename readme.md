@@ -15,7 +15,7 @@
   An application used for talking about stock trading and posting your thoughts on future moves
   
   ## Installation
-  Clone the repo and build the app with ```npm run build``` and then run it with ```npm start'''
+  Clone the repo and build the app with ```npm run build``` and then run it with ```npm start```
   
   ## Usage
   To help you find and share thoughts on stock trading
