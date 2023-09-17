@@ -10,7 +10,23 @@ const GlobalStyle = createGlobalStyle`
 
   
   body {
+    background-image: url('https://static.vecteezy.com/system/resources/previews/002/623/312/large_2x/blue-candlestick-chart-on-blue-background-trading-graphic-design-concept-financial-stock-market-cryptocurrency-graph-illustration-vector.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     background-color: #9edafe;
+  }
+
+  .dashHead {
+    text-color: #FFFFFF;
+  }
+
+  .label {
+    text-color: #FFFFFF;
+  }
+
+  p {
+    text-color: #FFFFFF;
   }
 
   
@@ -59,7 +75,7 @@ const GlobalStyle = createGlobalStyle`
   
   button {
     padding: 10px 20px;
-    background-color: #0077ff;
+    background-color: #18DB00;
     color: #fff;
     border: none;
     border-radius: 5px;
