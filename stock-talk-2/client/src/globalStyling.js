@@ -18,11 +18,11 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .dashHead {
-    text-color: #FFFFFF;
+    color: #FFFFFF;
   }
 
   .label {
-    text-color: #FFFFFF;
+    color: #FFFFFF;
   }
 
   p {
