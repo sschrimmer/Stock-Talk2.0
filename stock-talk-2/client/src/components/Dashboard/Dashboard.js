@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Ticker from "../Ticker/Ticker";
 
 const Dashboard = () => {
   const { category } = useParams();
@@ -139,6 +140,7 @@ const Dashboard = () => {
   return (
     <div>
       <h2>{category ? `Posts in ${category}` : "Dashboard Home"}</h2>
+      <Ticker />
       {category && (
         <div>
           <button onClick={() => fetchPosts()}>Back to Dashboard Home</button>
