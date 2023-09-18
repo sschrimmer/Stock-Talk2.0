@@ -1,20 +1,21 @@
 const { gql } = require('apollo-server-express');
 
+//removing '!' for the parameter types... i think '!' is used for query/mutation
 const typeDefs = gql`
   type User {
-    _id: ID!
-    name: String!
-    email: String!
-    password: String!
+    _id: ID
+    name: String
+    email: String
+    password: String
   }
 
   type Post {
-    _id: ID!
-    text: String!
-    category: String!
-    likes: Int!
-    date: String!
-    user: User!
+    _id: ID
+    text: String
+    category: String
+    likes: Int
+    date: String
+    user: User
   }
 
   type Query {
