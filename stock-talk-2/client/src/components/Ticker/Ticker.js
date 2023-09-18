@@ -47,7 +47,10 @@ const commodities = [
     "ALL_COMMODITIES"
 ]
 
-const style = {
+const styles = {
+    ul: "flex-flow: row wrap",
+    li: "flex-flow: column wrap"
+
 // TODO: Make this baccground opaque? black
 // TODO: Make font color red/green if down/up based on api call
 }
@@ -124,69 +127,80 @@ const setURL = (params) => {
 //fetch from URL
 const getAPI = async (url) =>{
     try {
+        console.log(`Fetching... ${url}`)
+        
         const response = await fetch(url);
+        console.log(response)
+        
         const data = await response.json();
         console.log(data)
-        //return data
+
+        return data;
     } catch (error) {
         console.log(error);
     }
 }
 
-/* example: of API call 
-    getAPI(
-        setURL({
-            func: "FX_DAILY",
-            fromSymbol: "EUR",
-            toSymbol: "USD",
-        })
-    );
 
-*/
+
+//#region Testing utilities
+    // example: of API call 
+    // getAPI(
+    //     setURL({
+    //         func: "FX_DAILY",
+    //         fromSymbol: "EUR",
+    //         toSymbol: "USD",
+    //     })
+    // );
+
+// Pass the following objeccts to setURL()
+const testForex = {
+    func: "FX_DAILY",
+    fromSymbol: "EUR",
+    toSymbol: "USD",
+}
+const testCrypto = {
+    func: "DIGITAL_CURRENCY_DAILY",
+    symbol: "BTC",
+    market: "USD",
+}
+const testTop20 = {
+    func: "TOP_GAINERS_LOSERS",
+}
+const testCommodity = {
+    func: "COMMODITY",
+    commodity: "COPPER"
+}
+//#endregion
+
 const Ticker = () =>{
 
-    // //
-    // const createList = (array)=>{
-    //     //create `ul` with flex-flow: row wrap
+    //
+    const createList = (array)=>{
+        //create `ul` with flex-flow: row wrap
         
-    //     for(obj of array){
-    //         //append inside `ul`
-    //         // create `li` with `flex-flow: column wrap`
-    //     }
-
-
-    //     return (
-    //         <></>
-    //     );
-    // };
-
-    const testForex = {
-        func: "FX_DAILY",
-        fromSymbol: "EUR",
-        toSymbol: "USD",
+        for(const obj of array){
+            //append inside `ul`
+            // create `li` with `flex-flow: column wrap`
+        }
     }
+    // const response = getAPI(setURL(testTop20));
+    // const output = response || "Loading";
 
-    const testCrypto = {
-        func: "DIGITAL_CURRENCY_DAILY",
-        symbol: "BTC",
-        market: "USD",
-    }
+    // <ul style={styles.ul} >
+    // <li style={styles.li}>Recieved params here</li>
+    // </ul>
+    
+    //{ getAPI(setURL(testTop20)) }
 
-    const testTop20 = {
-        func: "TOP_GAINERS_LOSERS",
-    }
-
-    const testCommodity = {
-        func: "COMMODITY",
-        commodity: "COPPER"
-    }
-
-
-
+    
+    //     <ul style={styles.ul}>   
+    //     test
+    // </ul>
     // Outputting marquee of all datapoints...
     return (
         <marquee class="scroll" behavior="scroll" scrollamount="5">
-            { setURL(testTop20) }
+            {setURL(testTop20)}
         </marquee>
     );
 };
