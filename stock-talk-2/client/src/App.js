@@ -15,7 +15,9 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          {/* Add a route with a category parameter */}
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/:category" element={<Dashboard />} />
           <Route path="/landing" element={<Landing />} />
         </Routes>
       </Router>
