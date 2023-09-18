@@ -23,7 +23,7 @@ const typeDefs = gql`
     post(_id: ID!): Post
     posts: [Post]
     postsByCategory(category: String!): [Post]
-    commoditiesData: String # Assuming commoditiesData returns a string, adjust the type as needed
+    commoditiesData: String
   }
 
   type Mutation {
