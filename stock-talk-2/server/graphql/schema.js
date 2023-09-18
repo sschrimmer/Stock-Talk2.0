@@ -27,6 +27,7 @@ const typeDefs = gql`
     commoditiesData: String
   }
 
+  
   type Mutation {
     createUser(name: String!, email: String!, password: String!): User
     loginUser(email: String!, password: String!): String
