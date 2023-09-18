@@ -11,8 +11,6 @@ db.once('open', async () => {
 
     const posts = await Post.insertMany(postData);
     const users = await User.insertMany(userData);
-    
-    for (const newUser of users){ await newUser.save(); }
 
     for (const newPost of posts){
         const tempUser = users[Math.floor(Math.random() * users.length)];
@@ -20,8 +18,6 @@ db.once('open', async () => {
         newPost.user = tempUser._id;
         await newPost.save();
     }
-
-    
 
     console.log('Seeded!');
     process.exit(0);
