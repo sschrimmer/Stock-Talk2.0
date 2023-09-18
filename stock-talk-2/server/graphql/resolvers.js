@@ -1,3 +1,4 @@
+const axios = require('axios');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
@@ -46,40 +47,16 @@ const resolvers = {
         throw new Error('Error fetching posts by category');
       }
     },
-        // Fetch commodities data from Alpha Vantage
-        commoditiesData: async () => {
-          const functionName = 'TIME_SERIES_INTRADAY';
-          const symbol = 'COMMODITIES'; // You can specify a particular commodity symbol here
-          return fetchAlphaVantageData(functionName, symbol);
-        },
-    
-        // Fetch cryptocurrency data from Alpha Vantage
-        cryptocurrencyData: async () => {
-          const functionName = 'TIME_SERIES_INTRADAY';
-          const symbol = 'CRYPTO'; // You can specify a particular cryptocurrency symbol here
-          return fetchAlphaVantageData(functionName, symbol);
-        },
-    
-        // Fetch forex data from Alpha Vantage
-        forexData: async () => {
-          const functionName = 'TIME_SERIES_INTRADAY';
-          const symbol = 'FOREX'; // You can specify a particular forex symbol here
-          return fetchAlphaVantageData(functionName, symbol);
-        },
-    
-        // Fetch economic indicators data from Alpha Vantage
-        economicIndicatorsData: async () => {
-          const indicators = ['GDP', 'INFLATION', 'UNEMPLOYMENT'];
-          const data = {};
-    
-          for (const indicator of indicators) {
-            const functionName = 'TIME_SERIES_DAILY';
-            const symbol = indicator;
-            data[indicator] = await fetchAlphaVantageData(functionName, symbol);
-          }
-    
-          return data;
-        },
+    commoditiesData: async () => {
+      try {
+        // Implement the resolver logic to fetch commodities data here
+        // For example, you can use a library like axios to make an API request.
+        const response = await axios.get('https://api.example.com/commodities');
+        return response.data; // Assuming the data is returned as JSON
+      } catch (error) {
+        throw new Error('Error fetching commodities data');
+      }
+    },
   },
   Mutation: {
     createUser: async (_, { name, email, password }) => {
@@ -166,4 +143,3 @@ const resolvers = {
 };
 
 module.exports = resolvers;
-

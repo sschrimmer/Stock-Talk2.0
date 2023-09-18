@@ -17,16 +17,58 @@ const Dashboard = () => {
       let response;
       if (category) {
         // Fetch posts for a specific category
-        response = await fetch(`/api/posts/category/${category}`);
+        const requestPayload = {
+          query: `
+            query PostsByCategory($category: String!) {
+              postsByCategory(category: $category) {
+                _id
+                text
+                likes
+                date
+              }
+            }
+          `,
+          variables: {
+            category: category,
+          },
+        };
+
+        console.log("GraphQL Request Payload:", JSON.stringify(requestPayload, null, 2));
+
+        response = await fetch("../../../server/graphql/resolvers", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestPayload),
+        });
       } else {
         // Fetch posts from the dashboard home
-        response = await fetch("/api/posts");
+        response = await fetch("../../../server/graphql/resolvers", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            query: `
+              query AllPosts {
+                posts {
+                  _id
+                  text
+                  likes
+                  date
+                }
+              }
+            `,
+          }),
+        });
       }
 
       if (response.status === 200) {
         const data = await response.json();
-        setPosts(data.posts);
-        setFilteredPosts(data.posts);
+        const postsData = category ? data.data.postsByCategory : data.data.posts;
+        setPosts(postsData);
+        setFilteredPosts(postsData);
       } else {
         console.error("Failed to fetch posts");
       }
@@ -42,16 +84,31 @@ const Dashboard = () => {
   const handlePostSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Send a POST request to create a new post
-      const response = await fetch("/api/posts", {
+      // Send a GraphQL mutation to create a new post
+      const response = await fetch("../../../server/graphql/resolvers", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ text: postText, category }),
+        body: JSON.stringify({
+          query: `
+            mutation CreatePost($text: String!, $category: String!) {
+              createPost(text: $text, category: $category) {
+                _id
+                text
+                likes
+                date
+              }
+            }
+          `,
+          variables: {
+            text: postText,
+            category: category,
+          },
+        }),
       });
-
-      if (response.status === 201) {
+  
+      if (response.status === 200) {
         // Upon successful post creation, update the posts state
         fetchPosts();
         setPostText("");
@@ -81,14 +138,14 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h2 class = 'dashHead'>{category ? `Posts in ${category}` : "Dashboard Home"}</h2>
+      <h2>{category ? `Posts in ${category}` : "Dashboard Home"}</h2>
       {category && (
         <div>
           <button onClick={() => fetchPosts()}>Back to Dashboard Home</button>
         </div>
       )}
       <div>
-        <label class = 'label'>Filter by: </label>
+        <label>Filter by: </label>
         <select onChange={handleFilterChange}>
           <option value="likes">Most Liked</option>
           <option value="date">Most Recent</option>
@@ -107,16 +164,18 @@ const Dashboard = () => {
         <button type="submit">Post</button>
       </form>
       <div>
-        {filteredPosts.map((post) => (
-          <div key={post._id}>
-            <p>{post.text}</p>
-            <p>Likes: {post.likes}</p>
-            <p>Date: {new Date(post.date).toLocaleDateString()}</p>
-          </div>
-        ))}
+        {filteredPosts &&
+          filteredPosts.map((post) => (
+            <div key={post._id}>
+              <p>{post.text}</p>
+              <p>Likes: {post.likes}</p>
+              <p>Date: {new Date(post.date).toLocaleDateString()}</p>
+            </div>
+          ))}
       </div>
     </div>
   );
 };
 
 export default Dashboard;
+
