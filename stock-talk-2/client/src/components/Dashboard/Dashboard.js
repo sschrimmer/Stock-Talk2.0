@@ -122,7 +122,7 @@ const Dashboard = () => {
     }
   };
 
-  const handleFilterChange = (e) => {
+  const handleFilterChange = (e) =>{
     const filterType = e.target.value;
     if (filterType === "likes") {
       // Sort posts by likes
