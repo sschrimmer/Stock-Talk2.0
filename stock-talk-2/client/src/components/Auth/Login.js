@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 
 const Login = () => {
+  const navigate = useNavigate(); // Use useNavigate for navigation
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
-  const history = useHistory();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,7 +27,7 @@ const Login = () => {
 
       if (response.status === 200) {
         // Upon successful login, navigate to the dashboard
-        history.push("/");
+        navigate("/"); // Use the navigate function to go to the dashboard route
       } else {
         // Handle login failure
         console.error("Login failed");
@@ -71,3 +71,4 @@ const Login = () => {
 };
 
 export default Login;
+

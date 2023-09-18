@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import Login from './components/Auth/Login';
 import Dashboard from './components/Dashboard/Dashboard'; // Import the Dashboard component
 import reportWebVitals from './reportWebVitals';
 import { loadStripe } from '@stripe/stripe-js';
@@ -14,8 +15,8 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <GlobalStyle />
-    <Dashboard />
-  </React.StrictMode>
+    <App /> {/* Use the App component */}
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

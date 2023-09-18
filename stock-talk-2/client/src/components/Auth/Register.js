@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate(); // Use useNavigate for navigation
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
-
-  const history = useHistory();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,8 +27,8 @@ const Register = () => {
       });
 
       if (response.status === 201) {
-        // Upon successful registration, navigate to the dashboard
-        history.push("/");
+        // Upon successful registration, navigate to the login page
+        navigate("/login"); // Use the navigate function to go to the login page
       } else {
         // Handle registration failure
         console.error("Registration failed");
