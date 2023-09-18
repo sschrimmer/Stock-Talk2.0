@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from "../../clientResolvers"; // Updated import
 
 const Login = () => {
-  const navigate = useNavigate(); // Use useNavigate for navigation
-
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const [loginUserMutation] = useMutation(LOGIN_USER); // Updated mutation
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -16,20 +19,16 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Send a POST request to the server for authentication
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const { data } = await loginUserMutation({
+        variables: {
+          email: formData.email,
+          password: formData.password,
         },
-        body: JSON.stringify(formData),
       });
 
-      if (response.status === 200) {
-        // Upon successful login, navigate to the dashboard
-        navigate("/"); // Use the navigate function to go to the dashboard route
+      if (data.loginUser) {
+        navigate("/dashboard");
       } else {
-        // Handle login failure
         console.error("Login failed");
       }
     } catch (error) {
@@ -71,4 +70,3 @@ const Login = () => {
 };
 
 export default Login;
-
