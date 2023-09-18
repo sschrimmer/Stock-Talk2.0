@@ -4,11 +4,11 @@ const Schema = mongoose.Schema;
 const postSchema = new Schema({
   text: {
     type: String,
-    required: true,
+    //required: true,
   },
   category: {
     type: String,
-    required: true,
+    //required: true,
   },
   likes: {
     type: Number,
