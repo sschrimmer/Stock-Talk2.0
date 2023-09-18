@@ -14,8 +14,14 @@
 //'use strict';
 //var request = require('request');
 
+
+
 const base = "https://www.alphavantage.co/";
-const apiKey = process.env.APIKey || "demo"; //!! CANNOT USE "demo"; will fail on other calls 
+const apiKey = process.env.APIKey || "demo"; 
+//!! Having issues settin gup env;
+// TODO: get react to work with .env
+//!! CANNOT USE "demo"; will fail on other calls 
+console.log(`We are using this API key: ${apiKey}`);
 
 const fun = {
     top: "TOP_GAINERS_LOSERS",              // default for dashboard
@@ -85,6 +91,8 @@ const setURL = (params) => {
                 console.error("Missing commodity paramater");
                 return -1;
             };
+
+            // TODO: Check if valid 
             // console.log(commodities)
             // console.log( commodities.find( (c) => c === commodity) );
             // if( commodities.find( (c) => c === commodity) ){
@@ -114,17 +122,17 @@ const setURL = (params) => {
     return newURL;
 }
 
-// //fetch from URL
-// const getAPI = async (url) =>{
-//     try {
-//         const response = await fetch(url);
-//         const data = await response.json();
-//         console.log(data)
-//     } catch (error) {
-        
-//     }
-
-// }
+//fetch from URL
+const getAPI = async (url) =>{
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log(data)
+        //return data
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 // example: getAPI(setURL("TOP_GAINERS_LOSERS","daily","tsla"))
 
@@ -164,7 +172,7 @@ const Ticker = () =>{
 
     const testCommodity = {
         func: "COMMODITY",
-        commodity: "CO1PPER"
+        commodity: "COPPER"
     }
 
 
@@ -172,7 +180,7 @@ const Ticker = () =>{
     // Outputting marquee of all datapoints...
     return (
         <marquee class="scroll" behavior="scroll" scrollamount="5">
-            { setURL(testCommodity) }
+            { setURL(testTop20) }
         </marquee>
     );
 };

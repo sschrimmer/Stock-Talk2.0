@@ -5,6 +5,8 @@ import App from './App';
 import Dashboard from './components/Dashboard/Dashboard'; // Import the Dashboard component
 import reportWebVitals from './reportWebVitals';
 import { loadStripe } from '@stripe/stripe-js';
+require('dotenv').config()
+
 
 const stripePromise = loadStripe('pk_test_51NnuTDCQo2qBMXyzMFBiah3MrptUU26TlomFrK8VMfEJIeWfP8YiEvq6fbhKdAwDGdQkvLGBxMe0tAE4eU2Sk1w800zaYgqjnv');
 const root = ReactDOM.createRoot(document.getElementById('root'));
