@@ -22,6 +22,11 @@ async function startApolloServer() {
 }
 
 startApolloServer().then(() => {
+  // Serve your React app's index.html for all routes other than API routes.
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
+  });
+
   app.listen(port, () => {
     console.log(`Server is running on port ${port}; http://localhost:3001/`);
   });

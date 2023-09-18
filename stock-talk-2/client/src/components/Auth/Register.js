@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { REGISTER_USER } from "../../clientResolvers"; // Updated import
 
 const Register = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
 
-  const history = useHistory();
+  const [registerUserMutation] = useMutation(REGISTER_USER); // Updated mutation
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,20 +20,17 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Send a POST request to the server to create a new user
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const { data } = await registerUserMutation({
+        variables: {
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
         },
-        body: JSON.stringify(formData),
       });
 
-      if (response.status === 201) {
-        // Upon successful registration, navigate to the dashboard
-        history.push("/");
+      if (data.registerUser) {
+        navigate("/dashboard");
       } else {
-        // Handle registration failure
         console.error("Registration failed");
       }
     } catch (error) {

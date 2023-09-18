@@ -101,27 +101,6 @@ const resolvers = {
         throw new Error('Error logging in');
       }
     },
-    registerUser: async (_, { name, email, password }) => {
-      try {
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
-          throw new Error('User already exists');
-        }
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const user = new User({
-          name,
-          email,
-          password: hashedPassword,
-        });
-
-        await user.save();
-
-        return user;
-      } catch (error) {
-        throw new Error('Error registering user');
-      }
-    },
     createPost: async (_, { text, category }, { user }) => {
       try {
         if (!user) {
