@@ -147,7 +147,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h2>
+      <h2 class = 'label'>
         {selectedCategory
           ? `Posts in ${selectedCategory}`
           : "Dashboard Home"}
@@ -158,7 +158,7 @@ const Dashboard = () => {
         {/* <Link to="/dashboard">Back to Dashboard Home</Link> */}
       </div>
       <div>
-        <label>Filter by: </label>
+        <label class = 'label'>Filter by: </label>
         <select onChange={handleFilterChange}>
           <option value="likes">Most Liked</option>
           <option value="date">Most Recent</option>
@@ -175,7 +175,7 @@ const Dashboard = () => {
           ></textarea>
         </div>
         <div>
-          <label>Select Category: </label>
+          <label class = 'label'>Select Category: </label>
           <select
             onChange={handlePostCategoryChange}
             value={selectedPostCategory || "General"}
